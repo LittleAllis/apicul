@@ -18,8 +18,8 @@ export class User {
   address: string;
 
   @Column({ default: true })
-  phonenumber: boolean;
+  phonenumber: string;
 
   @Column({ default: true })
-  email: boolean;
+  email: string;
 }

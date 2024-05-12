@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './user/user.module';
+import { UsersModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
+import { DataSource } from 'typeorm';
 
 
 @Module({
@@ -16,8 +17,14 @@ import { User } from './user/entities/user.entity';
     database: 'apicul',
     entities: [User],
     synchronize: true,
-  }), UserModule],
+  }), UsersModule],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+
+@Module({
+  imports: [TypeOrmModule.forRoot(), UsersModule],
+})
+export class AppModule {
+  constructor(private dataSource: DataSource) {}
+}
